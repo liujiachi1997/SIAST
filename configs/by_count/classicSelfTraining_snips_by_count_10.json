@@ -1,0 +1,91 @@
+{
+    "random_seed":718,
+    "numpy_seed ":718,
+    "pytorch_seed":718,
+    "train_data_path": "data/snips/train",
+    "validation_data_path": "data/snips/valid",
+    "test_data_path": "data/snips/test",
+    "unlabeled_data_path":"",
+    "dataset_reader": {
+        "type": "slot_filling",
+        "token_indexers": {
+            "tokens": {
+                "type": "pretrained_transformer_mismatched",
+                "model_name": "bert-base-uncased",
+                "max_length": 64
+            }
+        }
+    },
+    "data_path":"results/snips/by_count_10/bert_self_train_1/saved_data",
+    "root_dir": "results/snips/by_count_10/bert_self_train_1",
+    "sampler":{
+        "mode": "coarse",
+        "type": "by_count",
+        "sample_ratio": 0.1,
+        "sample_count": 10
+    },
+    "model": {
+        "type": "slot_tagger",
+        "embedder": {
+            "token_embedders":{
+                "tokens": {
+                    "type": "pretrained_transformer_mismatched",
+                    "model_name": "bert-base-uncased",
+                    "max_length": 64,
+                    "train_parameters": true
+                }
+            }
+        },
+        "encoder": {
+            "type": "lstm",
+            "input_size": 768,
+            "hidden_size": 200,
+            "bidirectional": true
+        },
+        "use_crf": true,
+        "dropout": null
+    },
+    "train_data_loader": {
+        "batch_size": 64,
+        "shuffle": true
+    },
+    "dev_data_loader": {
+        "batch_size": 64,
+        "shuffle": false
+    },
+    "test_data_loader": {
+        "batch_size": 64,
+        "shuffle": false
+    },
+    "trainer": {
+        "type": "gradient_descent",
+        "optimizer": {
+            "type": "adamw",
+            "lr": 5e-05
+        },
+        "patience": 20,
+        "validation_metric": "+f1",
+        "num_epochs": 100,
+        "serialization_dir": "results/snips/by_count_10/bert_self_train_1",
+        "cuda_device": 0,
+        "grad_clipping": 5.0
+    },
+    "hyper-params": {
+        "resample": {
+            "rho": 1,
+            "threshold": 0.95,
+            "pattern_id": 2,
+            "gamma": 2,
+            "alpha": 10,
+            "beta": 1,
+            "resample_mode": "logarithmic"
+        },
+        "loss": {
+            "max_m": 0.5,
+            "s": 30,
+            "acsl_threshold": 0.5,
+            "lambda1": 2,            
+            "lambda2": 0.4
+        }
+    }
+}
