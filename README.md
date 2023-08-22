@@ -1,3 +1,8 @@
+## SIAST: A Slot Imbalance-Aware Self-Training Scheme for Semi-Supervised Slot Filling
+
+This repository is used to store source code for paper "[SIAST: A Slot Imbalance-Aware Self-Training Scheme for Semi-Supervised Slot Filling](https://ieeexplore.ieee.org/document/10096302)" accepted by ICASSP2023.
+
+
 
 ## Model train 
 
